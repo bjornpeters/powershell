@@ -1,0 +1,14 @@
+{
+  "license": "MIT",
+  "description": "First Pode test to see what it can do",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "./server.ps1",
+    "install": "yarn install --force --ignore-scripts --modules-folder pode_modules",
+    "build": "psake",
+    "test": "invoke-pester ./tests/*.ps1"
+  },
+  "name": "first-pode-test",
+  "author": "Bjorn Peters",
+  "main": "./server.ps1"
+}
