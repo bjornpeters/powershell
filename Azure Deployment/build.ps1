@@ -1,6 +1,6 @@
 # Credentials
 $userName = "newuser"
-$password = ConvertTo-SecureString "password123" -AsPlainText -Force
+$password = ConvertTo-SecureString "Hello1234" -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($userName, $password)
 
 $resourceGroupName = 'TestLab'
@@ -30,9 +30,8 @@ $subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $Sub
 $vnet = New-AzVirtualNetwork -Name $NetworkName -ResourceGroupName $ResourceGroupName -Location $LocationName -AddressPrefix $VnetAddressPrefix -Subnet $Subnet
 $nic = New-AzNetworkInterface -Name $VMNicName -ResourceGroupName $ResourceGroupName -Location $LocationName -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $PIP.Id
 
-
-New-TestLabVM `
-    -Credential $credential `
+# Create a new virtual machine in Microsoft Azure
+New-TestLabVM -Credential $credential `
     -VMName $vmName `
     -VMSize $vmSize `
     -NICID $nic.Id `
@@ -41,9 +40,8 @@ New-TestLabVM `
     -ResourceGroupName $resourceGroupName `
     -LocationName $locationName
 
-
-
-$fileUri = "https://storageaccountbpbjoac05.blob.core.windows.net/scripts/Script.ps1"
-$script = 'Script.ps1'
+# Add a new script extension to the VM
+$fileUri = "https://storageaccountbpbjoac05.blob.core.windows.net/scripts/Add-ScriptExtension.ps1"
+$script = 'Add-ScriptExtension.ps1'
 
 Add-ScriptExtension -FileUri $fileUri -Script $script -ResourceGroupName $resourceGroupName -VMName $vmName -LocationName $locationName
